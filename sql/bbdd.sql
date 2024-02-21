@@ -42,7 +42,8 @@ CREATE TABLE Votacion(
     idVoto INT AUTO_INCREMENT NOT NULL,
     idJuez INT NOT NULL,
     idComparsa INT NOT NULL,
-    CONSTRAINT pkvotacion PRIMARY KEY (idUsuario),
+    CONSTRAINT pkvotacion PRIMARY KEY (idVoto),
+    CONSTRAINT csujuez_comparsa UNIQUE INDEX(idJuez,idComparsa),
     CONSTRAINT fkvotacion_juez FOREIGN KEY(idJuez) REFERENCES Juez(idUsuario) ON DELETE CASCADE,
     CONSTRAINT fkvotacion_comparsa FOREIGN KEY(idComparsa) REFERENCES Comparsa(idComparsa) ON DELETE CASCADE
 )ENGINE=INNODB;
@@ -52,8 +53,8 @@ CREATE TABLE Criterios_Votacion(
     idCriterio TINYINT NOT NULL,
     puntuacion TINYINT NOT NULL,
     CONSTRAINT pkcriterios_votacion PRIMARY KEY (idVoto,idCriterio),
-    CONSTRAINT fkcriterios_votacion_votacion FOREIGN KEY(idVoto) REFERENCES Voto(idVoto) ON DELETE CASCADE,
-    CONSTRAINT fkcriterios_votacion_criterio FOREIGN KEY(idCriterio) REFERENCES Criterio(idCriterio) ON DELETE CASCADE
+    CONSTRAINT fkcriterios_votacion_votacion FOREIGN KEY(idVoto) REFERENCES Votacion(idVoto) ON DELETE CASCADE,
+    CONSTRAINT fkcriterios_votacion_criterio FOREIGN KEY(idCriterio) REFERENCES Criterios(idCriterio) ON DELETE CASCADE
 )ENGINE=INNODB;
 
 
