@@ -80,6 +80,7 @@ h1 {
 #divcomparsas{
     width: 90%;
     padding: 0px;
+    min-height: 15%;
 }
 #divcomparsas .comparsas-list {
     width: 100%;
