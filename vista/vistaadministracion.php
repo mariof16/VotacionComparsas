@@ -9,7 +9,7 @@
 <body>
     <h1>Votación de los Carnavales</h1>
     <div class="botones">
-        <a href="#" class="boton">Comparsas</a>
+        <a href="index.php?controlador=administracioncomparsa&metodo=listar" class="boton">Comparsas</a>
         <a href="#" class="boton">Votaciones</a>
         <a href="#" class="boton">Jueces</a>
         <a href="#" class="boton">Criterios</a>

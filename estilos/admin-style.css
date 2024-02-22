@@ -18,7 +18,7 @@ h1 {
     border-radius: 5px;
 }
 .container {
-    max-width: 400px;
+    width: 30%;
     margin: 100px auto;
     padding: 20px;
     border-radius: 10px;
@@ -31,7 +31,7 @@ h1 {
 }
 .container input[type="text"],
 .container input[type="password"] {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -76,4 +76,46 @@ h1 {
 
 .boton:hover {
     background-color: #555;
+}
+#divcomparsas{
+    width: 90%;
+    padding: 0px;
+}
+#divcomparsas .comparsas-list {
+    width: 100%;
+    margin-top: 15px;
+}
+#divcomparsas .comparsas-list .comparsa:nth-child(odd) {
+    background-color: #b3b0b0;
+}
+#divcomparsas .comparsa {
+    padding: 15px;
+}
+#aniadir{
+    background-color: greenyellow;
+    padding: 5px;
+    border-radius: 15px;
+    margin-left: 15px;
+}
+.comparsa{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comparsa>div>a{
+    display: inline-block;
+    height: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+.comparsa>div>a:hover{
+    background-color: greenyellow;
+    scale: 1.1;
+}
+.comparsa>div>a:last-child:hover{
+    background-color: red;
+}
+.comparsa>div>a>img{
+    width: 40px;
 }
