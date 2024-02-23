@@ -20,6 +20,8 @@ class ControladorIniciosesion {
         if($tipo=="administrador")
         {
             header("Location: index.php?controlador=administracion&metodo=mostrar");
+        }else{
+            header("Location: index.php?controlador=juez&metodo=listar");
         }
     }
 }

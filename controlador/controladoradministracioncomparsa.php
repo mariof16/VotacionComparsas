@@ -67,25 +67,27 @@ class ControladorAdministracionComparsa {
             if(!empty($_POST["nombre"])){
                 try{
                     $imagenanterior=$this->modelo->datosformulario($_GET["id"])["foto"];
-                    
                     $nombre=$_POST["nombre"];
                     $imagen="comparsa-".$_POST["nombre"];
                     $provincia=$_POST["provincia"];
+
                     $this->modelo->modificar($_GET["id"],$_POST["nombre"],$imagen,$_POST["provincia"]);
 
                     $carpeta_destino = 'img/comparsas/';
                     $nombre_archivo = $imagen.".jpg";
-
-                    if($imagen!=$imagenanterior){
-                        unlink($carpeta_destino.$imagenanterior.".jpg");
                     
+                    if($imagen!=$imagenanterior && empty($_FILES['imagen']['tmp_name'])){
+                       rename($carpeta_destino.$imagenanterior.".jpg",$carpeta_destino.$nombre_archivo);
                     }
-                    if(file_exists($carpeta_destino.$nombre_archivo)){
-                        unlink($carpeta_destino.$nombre_archivo);
-                    }
-                    $temporal_archivo = $_FILES['imagen']['tmp_name'];
-                    if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
-                        $this->error="moverno";
+                    if(!empty($_FILES['imagen']['tmp_name'])){
+                        unlink($carpeta_destino.$imagenanterior.".jpg");
+                        if(file_exists($carpeta_destino.$nombre_archivo)){
+                            unlink($carpeta_destino.$nombre_archivo);
+                        }
+                        $temporal_archivo = $_FILES['imagen']['tmp_name'];
+                        if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
+                            $this->error="moveno";
+                        }
                     }
                 }
                 catch(Exception $e){

@@ -117,11 +117,24 @@ h1 {
 .comparsa>div>a:last-child:hover{
     background-color: red;
 }
+.comparsa>div>.botonvotar:last-child:hover{
+    background-color: rgb(30, 84, 145);
+}
 .comparsa>div>a>img{
     width: 40px;
 }
 #imgmodificar{
     width: 50%;
     margin: auto;
+    display: block;
+}
+.imagenlistarcomparsa{
+    width: 50%;
+}
+#votacioneslistar>.comparsa{
+    display: block;
+}
+#votacioneslistar>.comparsa {
+    text-align: center;
     display: block;
 }
