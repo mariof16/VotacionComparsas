@@ -120,3 +120,8 @@ h1 {
 .comparsa>div>a>img{
     width: 40px;
 }
+#imgmodificar{
+    width: 50%;
+    margin: auto;
+    display: block;
+}

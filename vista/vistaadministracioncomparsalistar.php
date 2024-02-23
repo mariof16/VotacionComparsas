@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Votación de los Carnavales</h1>
+    <a href="index.php?controlador=administracion&metodo=mostrar" class="boton">Atras</a>
     <div class="container" id="divcomparsas">
         <h2>Comparsas</h2>
         <a id="aniadir" href="index.php?controlador=administracioncomparsa&metodo=crear">Añadir comparsa</a>
@@ -18,7 +19,7 @@
                 echo "  <h3>".$fila["nombre"]."</h3>";
                 echo "  <p>".$fila["provincia"]."</p>";
                 echo "  <div>";
-                echo "      <a><img src='img/modificar.png'></img></a>";
+                echo "      <a href='index.php?controlador=administracioncomparsa&metodo=modificar&id=".$fila["idComparsa"]."'><img src='img/modificar.png'></img></a>";
                 echo "      <a href='index.php?controlador=administracioncomparsa&metodo=borrar&id=".$fila["idComparsa"]."&nombre=".$fila["nombre"]."'><img src='img/borrar1.png'></img></a>";
                 echo "  </div>";
                 echo "</div>";

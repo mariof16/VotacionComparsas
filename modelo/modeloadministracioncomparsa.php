@@ -23,6 +23,19 @@ class ModeloAdministracionComparsa {
         $query = "DELETE FROM Comparsa WHERE idComparsa=$id";
         $this->conexion->query($query);
     }
+    public function datosformulario($id){
+        $query = "SELECT * FROM Comparsa WHERE idComparsa=$id";
+        $resultado = $this->conexion->query($query);
+        $datos = $resultado->fetch_assoc();
+        return $datos;
+    }
+    public function modificar($id,$nombre,$imagen,$provincia){
+        $query = "UPDATE Comparsa SET nombre = ?, foto = ?, provincia = ? WHERE idComparsa = ?";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bind_param('sssi', $nombre, $imagen, $provincia, $id);
+        $stmt->execute();
+        $stmt->close();
+    }
     public function imagenborrar($id){
         $query = "SELECT foto FROM Comparsa where idComparsa=$id";
         $resultado = $this->conexion->query($query);

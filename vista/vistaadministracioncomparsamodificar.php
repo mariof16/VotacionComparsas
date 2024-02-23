@@ -17,15 +17,16 @@
                 echo "</h1>";
             }?>
         <h2>Comparsas</h2>
-        <form action="index.php?controlador=administracioncomparsa&metodo=crear" method="post" enctype="multipart/form-data">
+        <form action="index.php?controlador=administracioncomparsa&metodo=modificar&id=<?php echo $_GET["id"]?>" method="post" enctype="multipart/form-data">
             <p>Nombre</p>
-            <input type="text" name="nombre">
+            <input type="text" name="nombre" value="<?php if(isset($datos['nombre'])) echo $datos['nombre']?>">
             <p>Imagen</p>
+            <img id="imgmodificar" src="img/comparsas/<?php if (isset($datos['foto'])) echo $datos['foto']?>.jpg">
             <input type="file" name="imagen">
             <p>Provincia</p>
-            <input type="text" name="provincia">
+            <input type="text" name="provincia" value="<?php if(isset($datos['provincia'])) echo $datos['provincia']?>">
             <br>
-            <input type="submit" name="crear">
+            <input type="submit" name="modificar">
         </form>
     </div>
 </body>

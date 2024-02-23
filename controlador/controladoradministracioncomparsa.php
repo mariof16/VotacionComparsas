@@ -61,4 +61,44 @@ class ControladorAdministracionComparsa {
             header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
         }
     }
+    function modificar(){
+        $this->vista='vistaadministracioncomparsamodificar';
+        if(isset($_POST["modificar"])){
+            if(!empty($_POST["nombre"])){
+                try{
+                    $imagenanterior=$this->modelo->datosformulario($_GET["id"])["foto"];
+                    
+                    $nombre=$_POST["nombre"];
+                    $imagen="comparsa-".$_POST["nombre"];
+                    $provincia=$_POST["provincia"];
+                    $this->modelo->modificar($_GET["id"],$_POST["nombre"],$imagen,$_POST["provincia"]);
+
+                    $carpeta_destino = 'img/comparsas/';
+                    $nombre_archivo = $imagen.".jpg";
+
+                    if($imagen!=$imagenanterior){
+                        unlink($carpeta_destino.$imagenanterior.".jpg");
+                    
+                    }
+                    if(file_exists($carpeta_destino.$nombre_archivo)){
+                        unlink($carpeta_destino.$nombre_archivo);
+                    }
+                    $temporal_archivo = $_FILES['imagen']['tmp_name'];
+                    if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
+                        $this->error="moverno";
+                    }
+                }
+                catch(Exception $e){
+                    if($e->getcode()=="1062")
+                        $this->error="El nombre ".$nombre." ya está en uso";
+                }
+                if(!$this->error){
+                    header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
+                }
+            }else{
+                $this->error="Provincia es el único campo que puede estar vacío";
+            }
+        }
+        return $this->modelo->datosformulario($_GET["id"]);
+    }
 }
