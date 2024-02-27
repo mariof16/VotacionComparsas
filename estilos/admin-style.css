@@ -130,6 +130,7 @@ h1 {
 }
 .imagenlistarcomparsa{
     width: 50%;
+    margin-left: 25px;
 }
 #votacioneslistar>.comparsa{
     display: block;
@@ -137,4 +138,40 @@ h1 {
 #votacioneslistar>.comparsa {
     text-align: center;
     display: block;
+}
+.divvotar{
+    display: flex;
+}
+.divvotar p{
+    display: inline-block;
+    font-size: 25px;
+}
+.divvotar>div:nth-child(1){
+    width: 50%;
+    display: block ;
+    margin-left: 50px;
+}
+.divvotar>div:nth-child(2){
+    padding: 20px 150px;
+    flex-grow: 1;
+}
+.divvotar input{
+    width: 50px;
+    height: 50px;
+    float: right;
+    font-size: 25px;
+    border-width: 0px;
+    border-radius: 15px;
+    text-align: center;
+    background-color:#b3b0b0;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.divvotar>div>img{
+    width: 80%;
+    display: block ;
+    margin: auto;
 }

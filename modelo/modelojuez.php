@@ -15,12 +15,16 @@ class ModeloJuez{
         
     }
     public function datosvotacion($id){
-        $query = "SELECT c.idComparsa AS id, c.nombre AS nombre
+        $query = "SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
         FROM Comparsa c
         WHERE c.idComparsa = $id
         UNION
-        SELECT cri.idCriterio AS id, cri.nombre AS nombre
-        FROM Criterios cri";
+        SELECT cri.idCriterio AS id, cri.nombre AS nombre, 'criterio' AS tipo
+        FROM Criterios cri
+        UNION
+        SELECT u.idUsuario AS id, u.nombre AS nombre, 'juez' AS tipo
+        FROM Usuarios u
+        WHERE u.tipo = 'juez'";
         $resultado = $this->conexion->query($query);
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
