@@ -18,12 +18,11 @@ class ControladorAdministracionComparsa {
             if(!empty($_POST["nombre"])&& !empty($_FILES['imagen']['name'])){
                 try{
                     $nombre=$_POST["nombre"];
-                    $imagen="comparsa-".$_POST["nombre"];
                     $provincia=$_POST["provincia"];
                     $this->modelo->crear($nombre,$imagen,$provincia);
 
                     $carpeta_destino = 'img/comparsas/';
-                    $nombre_archivo = $imagen.".jpg";
+                    $nombre_archivo = "comparsa-".$nombre.".jpg";
 
                     if(file_exists($carpeta_destino.$nombre_archivo)){
                         unlink($carpeta_destino.$nombre_archivo);
@@ -31,7 +30,7 @@ class ControladorAdministracionComparsa {
 
                     $temporal_archivo = $_FILES['imagen']['tmp_name'];
                     if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
-                        $this->error="moveno";
+                        $this->error="Error al subir archivo";
                     }
                 }
                 catch(Exception $e){
@@ -66,12 +65,12 @@ class ControladorAdministracionComparsa {
         if(isset($_POST["modificar"])){
             if(!empty($_POST["nombre"])){
                 try{
-                    $imagenanterior=$this->modelo->datosformulario($_GET["id"])["foto"];
+                    $imagenanterior="comparsa-".$this->modelo->datosformulario($_GET["id"])["nombre"];
                     $nombre=$_POST["nombre"];
                     $imagen="comparsa-".$_POST["nombre"];
                     $provincia=$_POST["provincia"];
 
-                    $this->modelo->modificar($_GET["id"],$_POST["nombre"],$imagen,$_POST["provincia"]);
+                    $this->modelo->modificar($_GET["id"],$_POST["nombre"],$_POST["provincia"]);
 
                     $carpeta_destino = 'img/comparsas/';
                     $nombre_archivo = $imagen.".jpg";
@@ -86,7 +85,7 @@ class ControladorAdministracionComparsa {
                         }
                         $temporal_archivo = $_FILES['imagen']['tmp_name'];
                         if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
-                            $this->error="moveno";
+                            $this->error="Error al subir archivo";
                         }
                     }
                 }

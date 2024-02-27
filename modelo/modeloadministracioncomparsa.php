@@ -1,5 +1,4 @@
 <?php
-//Lo que seria el modelo
 require_once "conexion/conexion.php";
 class ModeloAdministracionComparsa {
     private $conexion;
@@ -12,10 +11,10 @@ class ModeloAdministracionComparsa {
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
-    public function crear($nombre,$imagen,$provincia){
-        $query = "INSERT INTO Comparsa (nombre, foto, provincia) VALUES (?, ?, ?)";
+    public function crear($nombre,$provincia){
+        $query = "INSERT INTO Comparsa (nombre, provincia) VALUES (?, ?)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param('sss', $nombre, $imagen, $provincia);
+        $stmt->bind_param('ss', $nombre, $provincia);
         $stmt->execute();
         $stmt->close();
     }
@@ -29,17 +28,17 @@ class ModeloAdministracionComparsa {
         $datos = $resultado->fetch_assoc();
         return $datos;
     }
-    public function modificar($id,$nombre,$imagen,$provincia){
-        $query = "UPDATE Comparsa SET nombre = ?, foto = ?, provincia = ? WHERE idComparsa = ?";
+    public function modificar($id,$nombre,$provincia){
+        $query = "UPDATE Comparsa SET nombre = ?, provincia = ? WHERE idComparsa = ?";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param('sssi', $nombre, $imagen, $provincia, $id);
+        $stmt->bind_param('ssi', $nombre, $provincia, $id);
         $stmt->execute();
         $stmt->close();
     }
     public function imagenborrar($id){
-        $query = "SELECT foto FROM Comparsa where idComparsa=$id";
+        $query = "SELECT nombre FROM Comparsa where idComparsa=$id";
         $resultado = $this->conexion->query($query);
         $fila = $resultado->fetch_assoc();
-        return $fila['foto'];
+        return "comparsa-".$fila['nombre'];
     }
 }

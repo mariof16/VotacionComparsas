@@ -1,5 +1,4 @@
 <?php
-//Lo que seria el modelo
 require_once "conexion/conexion.php";
 class ModeloAdministracion {
     private $conexion;

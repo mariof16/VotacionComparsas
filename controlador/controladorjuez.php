@@ -12,4 +12,8 @@ class ControladorJuez {
         $this->vista='vistajuezcomparsalistar';
         return $this->modelo->listar();
     }
+    function votar(){
+        $this->vista='vistajuezcomparsavotar';
+        return $datos=$this->modelo->datosvotacion($_GET["id"]);
+    }
 }
