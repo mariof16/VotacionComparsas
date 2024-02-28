@@ -11,8 +11,16 @@ class ModeloJuez{
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
-    public function votar(){
-        
+    public function votar($idjuez, $idcomparsa, $criterios) {
+        $query = "INSERT INTO Votacion (idJuez, idComparsa) VALUES ($idjuez, $idcomparsa)";
+        $this->conexion->query($query);
+        $idVoto = $this->conexion->insert_id;
+        foreach ($criterios as $idCriterio => $criterio) {
+            foreach ($criterio as $id => $puntuacion) {
+                $query = "INSERT INTO Criterios_Votacion (idVoto, idCriterio, puntuacion) VALUES ($idVoto, $idCriterio, $puntuacion)";
+                $this->conexion->query($query);
+            }
+        }
     }
     public function datosvotacion($id){
         $query = "SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
