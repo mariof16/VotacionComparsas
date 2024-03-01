@@ -22,8 +22,8 @@
             <input type="text" name="nombre">
             <p>Imagen</p>
             <input type="file" name="imagen">
-            <p>Provincia</p>
-            <input type="text" name="provincia">
+            <p>Provincia (opcional)</p>
+            <input type="text" name="poblacion">
             <br>
             <input type="submit" name="crear">
         </form>

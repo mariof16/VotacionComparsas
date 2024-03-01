@@ -1,12 +1,12 @@
 <?php
 //Controlador de niveles
 require_once "modelo/modeloadministracioncomparsa.php";
-class ControladorAdministracionComparsa {
+class CAdministracionComparsa {
     public $modelo;
     public $error;
     public $vista;
     function __construct(){
-        $this->modelo= new Modeloadministracioncomparsa();
+        $this->modelo= new MAdministracionComparsa();
     }
     function listar(){
         $this->vista='vistaadministracioncomparsalistar';
@@ -15,11 +15,20 @@ class ControladorAdministracionComparsa {
     function crear(){
         $this->vista='vistaadministracioncomparsacrear';
         if(isset($_POST["crear"])){
-            if(!empty($_POST["nombre"])&& !empty($_FILES['imagen']['name'])){
+            if(!empty($_FILES['imagen']['tmp_name'])){
+                $tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
+
+                if ($tipoarchivo === IMAGETYPE_JPEG || $tipoarchivo === IMAGETYPE_PNG || $tipoarchivo === IMAGETYPE_GIF) {
+                   $imagen=true
+                } else {
+                    $this->error='El archivo no es una imagen válida.';
+                }
+            }
+            if($imagen){
                 try{
                     $nombre=$_POST["nombre"];
-                    $provincia=$_POST["provincia"];
-                    $this->modelo->crear($nombre,$imagen,$provincia);
+                    $poblacion=$_POST["poblacion"];
+                    $this->modelo->crear($nombre,$imagen,$poblacion);
 
                     $carpeta_destino = 'img/comparsas/';
                     $nombre_archivo = "comparsa-".$nombre.".jpg";
@@ -37,11 +46,11 @@ class ControladorAdministracionComparsa {
                     if($e->getcode()=="1062")
                         $this->error="El nombre ".$nombre." ya está en uso";
                 }
-                if(!$this->error){
-                    header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
-                }
             }else{
-                $this->error="Provincia es el único campo que puede estar vacío";
+                $this->error="poblacion es el único campo que puede estar vacío";
+            }
+            if(!$this->error){
+                header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
             }
         }
     }
@@ -68,9 +77,9 @@ class ControladorAdministracionComparsa {
                     $imagenanterior="comparsa-".$this->modelo->datosformulario($_GET["id"])["nombre"];
                     $nombre=$_POST["nombre"];
                     $imagen="comparsa-".$_POST["nombre"];
-                    $provincia=$_POST["provincia"];
+                    $poblacion=$_POST["poblacion"];
 
-                    $this->modelo->modificar($_GET["id"],$_POST["nombre"],$_POST["provincia"]);
+                    $this->modelo->modificar($_GET["id"],$_POST["nombre"],$_POST["poblacion"]);
 
                     $carpeta_destino = 'img/comparsas/';
                     $nombre_archivo = $imagen.".jpg";
@@ -97,7 +106,7 @@ class ControladorAdministracionComparsa {
                     header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
                 }
             }else{
-                $this->error="Provincia es el único campo que puede estar vacío";
+                $this->error="Poblacion es el único campo que puede estar vacío";
             }
         }
         return $this->modelo->datosformulario($_GET["id"]);

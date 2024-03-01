@@ -1,6 +1,6 @@
 <?php
-require_once "conexion/conexion.php";
-class ModeloJuez{
+require_once "conexion.php";
+class MJuez{
     private $conexion;
     function __construct(){
         $claseconexion = new Conexion();
@@ -34,6 +34,6 @@ class ModeloJuez{
         FROM Usuarios u
         WHERE u.tipo = 'juez'";
         $resultado = $this->conexion->query($query);
-        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        return $this->resultado->fetch_assoc();
     }
 }

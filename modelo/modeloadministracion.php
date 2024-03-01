@@ -1,6 +1,6 @@
 <?php
-require_once "conexion/conexion.php";
-class ModeloAdministracion {
+require_once "conexion.php";
+class MAdministracion {
     private $conexion;
     function __construct(){
         $claseconexion = new Conexion();

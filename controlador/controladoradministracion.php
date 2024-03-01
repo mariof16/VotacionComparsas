@@ -1,12 +1,12 @@
 <?php
 //Controlador de niveles
 require_once "modelo/modeloadministracion.php";
-class ControladorAdministracion {
+class CAdministracion {
     public $modelo;
     private $error;
     public $vista;
     function __construct(){
-        $this->modelo= new Modeloadministracion();
+        $this->modelo= new MAdministracion();
     }
     function mostrar(){
         $this->vista='vistaadministracion';

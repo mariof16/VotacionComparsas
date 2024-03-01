@@ -1,6 +1,6 @@
 -- Insertar usuarios
 INSERT INTO Usuarios (nombre, correo, contrasenia, tipo)
-VALUES ('Mario', 'mario@gmail.com', '1234', 'administrador');
+VALUES ('Admin', 'admin@gmail.com', '1234', 'administrador');
 SET @usuario_id = LAST_INSERT_ID();
 INSERT INTO Administrador (idUsuario) VALUES (@usuario_id);
 

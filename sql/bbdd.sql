@@ -12,7 +12,7 @@ CREATE TABLE Criterios(
 CREATE TABLE Comparsa(
     idComparsa INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(40) NOT NULL,
-    provincia VARCHAR(40) NULL,
+    poblacion VARCHAR(40) NULL,
     CONSTRAINT pkcomparsa PRIMARY KEY (idComparsa)
 )ENGINE=INNODB;
 

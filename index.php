@@ -13,7 +13,7 @@ if(isset($_GET["metodo"])){
 }
 
 require_once "controlador/controlador".$nombrecontrolador.".php";
-$nombreaux= "controlador".$nombrecontrolador;
+$nombreaux= "C".$nombrecontrolador;
 $controlador= new $nombreaux();
 $datos=$controlador->$metodo();
 

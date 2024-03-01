@@ -1,6 +1,6 @@
 <?php
-require_once "conexion/conexion.php";
-class ModeloAdministracionComparsa {
+require_once "conexion.php";
+class MAdministracionComparsa {
     private $conexion;
     function __construct(){
         $claseconexion = new Conexion();
@@ -11,10 +11,10 @@ class ModeloAdministracionComparsa {
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
-    public function crear($nombre,$provincia){
-        $query = "INSERT INTO Comparsa (nombre, provincia) VALUES (?, ?)";
+    public function crear($nombre,$poblacion){
+        $query = "INSERT INTO Comparsa (nombre, poblacion) VALUES (?, ?)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param('ss', $nombre, $provincia);
+        $stmt->bind_param('ss', $nombre, $poblacion);
         $stmt->execute();
         $stmt->close();
     }
@@ -28,10 +28,10 @@ class ModeloAdministracionComparsa {
         $datos = $resultado->fetch_assoc();
         return $datos;
     }
-    public function modificar($id,$nombre,$provincia){
-        $query = "UPDATE Comparsa SET nombre = ?, provincia = ? WHERE idComparsa = ?";
+    public function modificar($id,$nombre,$poblacion){
+        $query = "UPDATE Comparsa SET nombre = ?, poblacion = ? WHERE idComparsa = ?";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param('ssi', $nombre, $provincia, $id);
+        $stmt->bind_param('ssi', $nombre, $poblacion, $id);
         $stmt->execute();
         $stmt->close();
     }

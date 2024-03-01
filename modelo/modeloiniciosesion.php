@@ -1,6 +1,6 @@
 <?php
-require_once "conexion/conexion.php";
-class ModeloIniciosesion {
+require_once "conexion.php";
+class MIniciosesion {
     private $conexion;
     function __construct(){
         $claseconexion = new Conexion();
