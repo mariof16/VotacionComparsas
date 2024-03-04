@@ -19,7 +19,7 @@ class CAdministracionComparsa {
                 $tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
 
                 if ($tipoarchivo === IMAGETYPE_JPEG || $tipoarchivo === IMAGETYPE_PNG || $tipoarchivo === IMAGETYPE_GIF) {
-                   $imagen=true
+                   $imagen=true;
                 } else {
                     $this->error='El archivo no es una imagen válida.';
                 }
