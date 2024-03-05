@@ -17,7 +17,7 @@
             foreach($datos as $fila){
                 echo "<div class='comparsa'>";
                 echo "  <h3>".$fila["nombre"]."</h3>";
-                echo "  <p>".$fila["provincia"]."</p>";
+                echo "  <p>".$fila["poblacion"]."</p>";
                 echo "  <div>";
                 echo "      <a href='index.php?controlador=administracioncomparsa&metodo=modificar&id=".$fila["idComparsa"]."'><img src='img/modificar.png'></img></a>";
                 echo "      <a href='index.php?controlador=administracioncomparsa&metodo=borrar&id=".$fila["idComparsa"]."&nombre=".$fila["nombre"]."'><img src='img/borrar1.png'></img></a>";

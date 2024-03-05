@@ -10,6 +10,10 @@
     <h1>Votación de los Carnavales</h1>
     <div class="container" id="divcomparsas">
         <h2>Borrar comparsa: <?php if(isset($_GET["nombre"])) echo $_GET["nombre"]?></h2>
+        <?php 
+            if($datos)
+                echo "Hay votaciones para esta comparsa, se borrarian también";
+        ?>
         <form action="index.php?controlador=administracioncomparsa&metodo=borrar" method="post" enctype="multipart/form-data" class="borrado">   
             <div>
                 <input type="submit" name="si" value="Si">

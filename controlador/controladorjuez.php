@@ -16,14 +16,13 @@ class CJuez {
         $this->vista='vistajuezcomparsavotar';
         $validacion=true;
         if(isset($_POST["votar"])){
-            /*foreach ($_POST["criterios"] as $idCriterio => $criterio) {
+            foreach ($_POST["criterios"] as $idCriterio => $criterio) {
                 foreach ($criterio as $id => $puntuacion) {
-                    if($puntuacion>-1 && $puntuacion<11){
+                    if($puntuacion<0 || $puntuacion>10){
                         $validacion=false;
-                        echo $puntuacion;
                     }
                 }
-            }*/
+            }
             if($validacion){
                 try{
                     $this->modelo->votar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"]);

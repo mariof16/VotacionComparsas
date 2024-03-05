@@ -7,7 +7,7 @@ class MJuez{
         $this->conexion= $claseconexion->conexion;
     }
     public function listar(){
-        $query = 'SELECT nombre,idComparsa,provincia FROM Comparsa';
+        $query = 'SELECT nombre,idComparsa,poblacion FROM Comparsa';
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
@@ -22,7 +22,7 @@ class MJuez{
             }
         }
     }
-    public function datosvotacion($id){
+    public function datosvotacion($id) {
         $query = "SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
         FROM Comparsa c
         WHERE c.idComparsa = $id
@@ -33,7 +33,11 @@ class MJuez{
         SELECT u.idUsuario AS id, u.nombre AS nombre, 'juez' AS tipo
         FROM Usuarios u
         WHERE u.tipo = 'juez'";
+    
         $resultado = $this->conexion->query($query);
-        return $this->resultado->fetch_assoc();
+        $datos = $resultado->fetch_all(MYSQLI_ASSOC);
+        $resultado->close();
+
+        return $datos;
     }
 }

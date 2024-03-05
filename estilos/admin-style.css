@@ -128,16 +128,12 @@ h1 {
     margin: auto;
     display: block;
 }
-.imagenlistarcomparsa{
-    width: 50%;
-    margin-left: 25px;
-}
 #votacioneslistar>.comparsa{
-    display: block;
-}
-#votacioneslistar>.comparsa {
+    display: flex;
     text-align: center;
-    display: block;
+}
+#votacioneslistar>.comparsa>h3{
+    display: inline-block;
 }
 .divvotar{
     display: flex;
@@ -165,13 +161,13 @@ h1 {
     text-align: center;
     background-color:#b3b0b0;
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 .divvotar>div>img{
     width: 80%;
     display: block ;
     margin: auto;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

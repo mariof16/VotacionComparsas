@@ -11,16 +11,32 @@ class MAdministracionComparsa {
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
-    public function crear($nombre,$poblacion){
-        $query = "INSERT INTO Comparsa (nombre, poblacion) VALUES (?, ?)";
+    public function crear($nombre, $poblacion) {
+        $query = "INSERT INTO Comparsa (nombre";
+        $tipo = 's';
+        $parametros = array($nombre);
+
+        if (!empty($poblacion)) {
+            $query .= ", poblacion) VALUES (?, ?)";
+            $tipo .= 's';
+            $parametros[] = $poblacion;
+        } else {
+            $query .= ") VALUES (?)";
+        }
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param('ss', $nombre, $poblacion);
+        $stmt->bind_param($tipo, ...$parametros);//Añade los elementos del array parametros por separado
         $stmt->execute();
         $stmt->close();
     }
     public function borrar($id){
         $query = "DELETE FROM Comparsa WHERE idComparsa=$id";
         $this->conexion->query($query);
+    }
+    public function comprobarvotacion($id) {
+        $query = "SELECT * FROM Votacion WHERE idComparsa = $id";
+        $resultado = $this->conexion->query($query);
+        $filas = $resultado->num_rows;
+        return $filas > 0;
     }
     public function datosformulario($id){
         $query = "SELECT * FROM Comparsa WHERE idComparsa=$id";

@@ -17,8 +17,8 @@
                 echo "</h1>";
             }
         ?>    
-        <h2>Comparsa</h2>
         <h2><?php echo $datos[0]["nombre"]; ?></h2>
+        <h2>La nota para cada criterio es como mínimo 0 y máximo 10</h2>
         <form class="divvotar" action="index.php?controlador=juez&metodo=votar" method="post">
             <div>
                 <img src="img/comparsas/comparsa-<?php if(isset($datos[0]["nombre"])) echo $datos[0]["nombre"].".jpg"?>">

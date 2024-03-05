@@ -14,6 +14,7 @@ class CAdministracionComparsa {
     }
     function crear(){
         $this->vista='vistaadministracioncomparsacrear';
+        $imagen=false;
         if(isset($_POST["crear"])){
             if(!empty($_FILES['imagen']['tmp_name'])){
                 $tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
@@ -23,31 +24,36 @@ class CAdministracionComparsa {
                 } else {
                     $this->error='El archivo no es una imagen válida.';
                 }
+            }else{
+                $this->error="Necesitas tener una imagen para crear una comparsa";
             }
             if($imagen){
-                try{
-                    $nombre=$_POST["nombre"];
-                    $poblacion=$_POST["poblacion"];
-                    $this->modelo->crear($nombre,$imagen,$poblacion);
+                if(!empty($_POST["nombre"]))
+                {
+                    try{
+                        $nombre=$_POST["nombre"];
+                        $poblacion=$_POST["poblacion"];
+                        $this->modelo->crear($nombre,$poblacion);
 
-                    $carpeta_destino = 'img/comparsas/';
-                    $nombre_archivo = "comparsa-".$nombre.".jpg";
+                        $carpeta_destino = 'img/comparsas/';
+                        $nombre_archivo = "comparsa-".$nombre.".jpg";
 
-                    if(file_exists($carpeta_destino.$nombre_archivo)){
-                        unlink($carpeta_destino.$nombre_archivo);
+                        if(file_exists($carpeta_destino.$nombre_archivo)){
+                            unlink($carpeta_destino.$nombre_archivo);
+                        }
+
+                        $temporal_archivo = $_FILES['imagen']['tmp_name'];
+                        if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
+                            $this->error="Error al subir archivo";
+                        }
                     }
-
-                    $temporal_archivo = $_FILES['imagen']['tmp_name'];
-                    if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
-                        $this->error="Error al subir archivo";
+                    catch(Exception $e){
+                        if($e->getcode()=="1062")
+                            $this->error="El nombre ".$nombre." ya está en uso";
                     }
+                }else{
+                    $this->error="El nombre no puede estar vacío";
                 }
-                catch(Exception $e){
-                    if($e->getcode()=="1062")
-                        $this->error="El nombre ".$nombre." ya está en uso";
-                }
-            }else{
-                $this->error="poblacion es el único campo que puede estar vacío";
             }
             if(!$this->error){
                 header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
@@ -56,6 +62,8 @@ class CAdministracionComparsa {
     }
     function borrar(){
         $this->vista='vistaadministracioncomparsaborrar';
+        if(isset($_GET["id"]))
+            return $this->modelo->comprobarvotacion($_GET["id"]);
         if(isset($_POST["si"])){
             $carpeta_destino = 'img/comparsas/';
             $nombre_archivo = $this->modelo->imagenborrar($_POST["id"]).".jpg";
