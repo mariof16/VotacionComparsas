@@ -19,9 +19,9 @@ class CIniciosesion {
         $tipo=$this->modelo->consultarusuario($usuario,$contra);
         if($tipo=="administrador")
         {
-            header("Location: index.php?controlador=Administracion&metodo=mostrar");
+            header("Location: index.php?controlador=administracion&metodo=mostrar");
         }else{
-            header("Location: index.php?controlador=Juez&metodo=listar");
+            header("Location: index.php?controlador=juez&metodo=listar");
         }
     }
 }
