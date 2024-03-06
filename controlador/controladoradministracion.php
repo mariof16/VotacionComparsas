@@ -1,12 +1,14 @@
 <?php
 //Controlador de niveles
+require_once "controlador/controladoriniciosesion.php";
 require_once "modelo/modeloadministracion.php";
-class CAdministracion {
+class CAdministracion extends CIniciosesion{
     public $modelo;
-    private $error;
+    public $error;
     public $vista;
     function __construct(){
         $this->modelo= new MAdministracion();
+        $this->verificarsesion('administrador');
     }
     function mostrar(){
         $this->vista='vistaadministracion';

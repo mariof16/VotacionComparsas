@@ -28,16 +28,18 @@ class MJuez{
         WHERE c.idComparsa = $id
         UNION
         SELECT cri.idCriterio AS id, cri.nombre AS nombre, 'criterio' AS tipo
-        FROM Criterios cri
-        UNION
-        SELECT u.idUsuario AS id, u.nombre AS nombre, 'juez' AS tipo
-        FROM Usuarios u
-        WHERE u.tipo = 'juez'";
+        FROM Criterios cri";
     
         $resultado = $this->conexion->query($query);
         $datos = $resultado->fetch_all(MYSQLI_ASSOC);
         $resultado->close();
 
         return $datos;
+    }
+    public function yavotado($idjuez,$idcomparsa){
+        $query ="SELECT * FROM Votacion Where idJuez= $idjuez and idComparsa=$idcomparsa";
+        $resultado= $this->conexion->query($query);
+        $filas = $resultado->num_rows;
+        return $filas > 0;
     }
 }

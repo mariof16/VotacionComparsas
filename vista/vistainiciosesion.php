@@ -8,12 +8,19 @@
 </head>
 <body>
     <h1>Votación de los Carnavales</h1>
+    <?php
+       if(isset($controlador->error)){
+            echo "<h1 class='error'>";
+            echo $controlador->error;
+            echo "</h1>";
+        }
+    ?>   
     <div class="container">
         <h2>Iniciar Sesión</h2>
-        <form action="index.php?controlador=iniciosesion&metodo=consultarusuario" method="post">
+        <form action="index.php?controlador=iniciosesion&metodo=mostrar" method="post">
             <input type="text" name="usuario" placeholder="Usuario" required>
             <input type="password" name="contra" placeholder="Contraseña" required>
-            <input type="submit" value="Iniciar Sesión">
+            <input type="submit" name="iniciarsesion" value="Iniciar Sesión">
         </form>
     </div>
 </body>

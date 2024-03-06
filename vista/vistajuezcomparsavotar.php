@@ -34,13 +34,7 @@
                         echo "</div>";
                     }
                 }
-                echo "<select name='idjuez'>";
-                for ($i = 1; $i < count($datos); $i++) {
-                    if($datos[$i]["tipo"]=="juez"){
-                        echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option>";
-                    }
-                }
-                echo "</select>";
+                echo "<input type='hidden' name='idjuez' value=".$_SESSION['id'].">";
                 echo "<input type='submit' value='votar' name='votar'></input>";
                 ?>
             </div>

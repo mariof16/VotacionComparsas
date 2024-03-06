@@ -1,16 +1,31 @@
 <?php
 //Controlador de niveles
+require_once "controlador/controladoriniciosesion.php";
 require_once "modelo/modelojuez.php";
-class CJuez {
+class CJuez extends CIniciosesion{
     public $modelo;
     public $error;
     public $vista;
     function __construct(){
         $this->modelo= new MJuez();
+        $this->verificarsesion('juez');
     }
-    function listar(){
-        $this->vista='vistajuezcomparsalistar';
-        return $this->modelo->listar();
+    public function listar() {
+        $this->vista = 'vistajuezcomparsalistar';
+    
+        $comparsas = $this->modelo->listar();
+
+        $array=$comparsas;
+
+        foreach ($array as $array) {
+            $idComparsa = $array['idComparsa'];
+            $idJuez = $_SESSION['id'];
+
+            $votado = $this->modelo->yavotado($idJuez, $idComparsa);
+    
+            $array['votado'] = $votado;
+        }
+        return $comparsas;
     }
     function votar(){
         $this->vista='vistajuezcomparsavotar';
