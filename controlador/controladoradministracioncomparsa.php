@@ -19,13 +19,14 @@ class CAdministracionComparsa extends CIniciosesion{
         $imagen=false;
         if(isset($_POST["crear"])){
             if(!empty($_FILES['imagen']['tmp_name'])){
-                $tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
+                /*$tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
 
                 if ($tipoarchivo === IMAGETYPE_JPEG || $tipoarchivo === IMAGETYPE_PNG || $tipoarchivo === IMAGETYPE_GIF) {
                    $imagen=true;
                 } else {
                     $this->error='El archivo no es una imagen válida.';
-                }
+                }*/
+                $imagen=true;
             }else{
                 $this->error="Necesitas tener una imagen para crear una comparsa";
             }
@@ -47,7 +48,7 @@ class CAdministracionComparsa extends CIniciosesion{
                         $temporal_archivo = $_FILES['imagen']['tmp_name'];
                         if(!move_uploaded_file($temporal_archivo, $carpeta_destino.$nombre_archivo)){
                             $this->error="Error al subir archivo";
-                        }
+                        } 
                     }
                     catch(Exception $e){
                         if($e->getcode()=="1062")
@@ -58,7 +59,8 @@ class CAdministracionComparsa extends CIniciosesion{
                 }
             }
             if(!$this->error){
-                header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
+                header("Location: index.php?controlador=administracioncomparsa&metodo=listar");
+                exit;
             }
         }
     }

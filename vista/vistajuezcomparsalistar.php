@@ -19,7 +19,7 @@
                 echo "  <h3>".$fila["nombre"]."</h3>";
                 echo " <h2>".$fila["poblacion"]."</h2>";
                 echo "  <div>";
-                echo "      <a class=botonvotar href='index.php?controlador=Juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                echo "      <a class=botonvotar href='index.php?controlador=juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
                 echo "  </div>";
                 echo "</div>";
                 echo $fila["votado"];
