@@ -11,13 +11,22 @@
     <a href="index.php?controlador=juez&metodo=listar" class="boton">Atras</a>
     <div class="container" id="divcomparsas">
         <?php
+            print("<pre>".print_r($datos,true)."</pre>");
             if(isset($controlador->error)){
                 echo "<h1 class='error'>";
                 echo $controlador->error;
                 echo "</h1>";
             }
         ?>    
-        <h2><?php echo $datos[0]["nombre"]; ?></h2>
+        <h2>
+        <?php
+             foreach($datos as $fila){
+                if($fila["tipo"]=="comparsa"){
+                    echo $fila["nombre"];
+                }
+            }
+        ?>
+        </h2>
         <h2>La nota para cada criterio es como mínimo 0 y máximo 10</h2>
         <form class="divvotar" action="index.php?controlador=juez&metodo=votar" method="post">
             <div>
@@ -26,11 +35,11 @@
             <div>
             <?php
                 echo "<input type=hidden name=idcomparsa value=".$datos[0]["id"].">";
-                for ($i = 1; $i < count($datos); $i++) {
-                    if($datos[$i]["tipo"]=="criterio"){
+                foreach ($datos as $indice => $dato) {
+                    if ($dato["tipo"] == "criterio") {
                         echo "<div>";
-                        echo "<p>".$datos[$i]["nombre"]."</p>";
-                        echo "<input type='number' value=0 name=criterios[$i][".$datos[$i]["id"]."]></input>";
+                        echo "<p>".$dato["nombre"]."</p>";
+                        echo "<input type='number' value=".$dato['puntuacion']." name=criterios[$indice][".$dato["id"]."]></input>";
                         echo "</div>";
                     }
                 }

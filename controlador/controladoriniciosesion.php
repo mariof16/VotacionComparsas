@@ -38,13 +38,12 @@ class CIniciosesion{
                 header("Location: index.php?controlador=juez&metodo=listar");
             }
         }else{
-            $this->error="Combinación de correo y/o contraseña incorrecta";
+            $this->error="Combinación de correo y contraseña incorrecta";
         }
     }
     function verificarsesion($tipo){
         
         session_start();
-        var_dump($_SESSION);
         if(isset($_SESSION['tipo']))
         {
             if($_SESSION['tipo']!=$tipo){

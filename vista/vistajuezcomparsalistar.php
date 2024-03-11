@@ -13,16 +13,20 @@
         <h2>Comparsas</h2>
         <div class="comparsas-list" id="votacioneslistar">
             <?php
-            var_dump($datos);
             foreach($datos as $fila){
                 echo "<div class='comparsa'>";
-                echo "  <h3>".$fila["nombre"]."</h3>";
-                echo " <h2>".$fila["poblacion"]."</h2>";
+                echo "<h3>".$fila["nombre"]."</h3>";
+                echo "<h2>".$fila["poblacion"]."</h2>";
                 echo "  <div>";
-                echo "      <a class=botonvotar href='index.php?controlador=juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                if(!$fila['votado']){
+                    echo "<p>Votar: </p>";
+                    echo "<a class=botonvotar href='index.php?controlador=juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                }else{
+                    echo "<p>Modificar:</p>";
+                    echo "<a class=botonvotar href='index.php?controlador=juez&metodo=modificar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                }
                 echo "  </div>";
                 echo "</div>";
-                echo $fila["votado"];
             }?>
         </div>
     </div>

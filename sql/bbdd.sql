@@ -1,6 +1,6 @@
 CREATE TABLE Fecha(
-    fechahorainicio datetime null,
-    fechahorafin datetime null
+    fechahorainicio DATETIME NULL,
+    fechahorafin DATETIME NULL
 )ENGINE=INNODB;
 
 CREATE TABLE Criterios(
@@ -41,6 +41,7 @@ CREATE TABLE Votacion(
     idVoto INT AUTO_INCREMENT NOT NULL,
     idJuez INT NOT NULL,
     idComparsa INT NOT NULL,
+    fechahora DATETIME NOT NULL,
     CONSTRAINT pkvotacion PRIMARY KEY (idVoto),
     CONSTRAINT csujuez_comparsa UNIQUE INDEX(idJuez,idComparsa),
     CONSTRAINT fkvotacion_juez FOREIGN KEY(idJuez) REFERENCES Juez(idUsuario) ON DELETE CASCADE,
@@ -55,8 +56,6 @@ CREATE TABLE Criterios_Votacion(
     CONSTRAINT fkcriterios_votacion_votacion FOREIGN KEY(idVoto) REFERENCES Votacion(idVoto) ON DELETE CASCADE,
     CONSTRAINT fkcriterios_votacion_criterio FOREIGN KEY(idCriterio) REFERENCES Criterios(idCriterio) ON DELETE CASCADE
 )ENGINE=INNODB;
-
-
 
 CREATE UNIQUE INDEX nombrecriterio ON Criterios(nombre);
 CREATE UNIQUE INDEX nombrecomparsa ON Comparsa(nombre); 

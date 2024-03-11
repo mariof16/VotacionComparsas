@@ -19,13 +19,13 @@ class CAdministracionComparsa extends CIniciosesion{
         $imagen=false;
         if(isset($_POST["crear"])){
             if(!empty($_FILES['imagen']['tmp_name'])){
-                /*$tipoarchivo = exif_imagetype($_FILES['imagen']['tmp_name']);
+                $tipoarchivo = $_FILES['imagen']['type'];
 
-                if ($tipoarchivo === IMAGETYPE_JPEG || $tipoarchivo === IMAGETYPE_PNG || $tipoarchivo === IMAGETYPE_GIF) {
+                if ($tipoarchivo == "image/jpg"  || $tipoarchivo == "image/png" || $tipoarchivo == "image/jpeg") {
                    $imagen=true;
                 } else {
                     $this->error='El archivo no es una imagen válida.';
-                }*/
+                }
                 $imagen=true;
             }else{
                 $this->error="Necesitas tener una imagen para crear una comparsa";
@@ -38,7 +38,7 @@ class CAdministracionComparsa extends CIniciosesion{
                         $poblacion=$_POST["poblacion"];
                         $this->modelo->crear($nombre,$poblacion);
 
-                        $carpeta_destino = 'img/comparsas/';
+                        $carpeta_destino = 'comparsas/';
                         $nombre_archivo = "comparsa-".$nombre.".jpg";
 
                         if(file_exists($carpeta_destino.$nombre_archivo)){
@@ -51,7 +51,7 @@ class CAdministracionComparsa extends CIniciosesion{
                         } 
                     }
                     catch(Exception $e){
-                        if($e->getcode()=="1062")
+                        if($e->getcode()==1062)
                             $this->error="El nombre ".$nombre." ya está en uso";
                     }
                 }else{
@@ -60,7 +60,6 @@ class CAdministracionComparsa extends CIniciosesion{
             }
             if(!$this->error){
                 header("Location: index.php?controlador=administracioncomparsa&metodo=listar");
-                exit;
             }
         }
     }
@@ -69,7 +68,7 @@ class CAdministracionComparsa extends CIniciosesion{
         if(isset($_GET["id"]))
             return $this->modelo->comprobarvotacion($_GET["id"]);
         if(isset($_POST["si"])){
-            $carpeta_destino = 'img/comparsas/';
+            $carpeta_destino = 'comparsas/';
             $nombre_archivo = $this->modelo->imagenborrar($_POST["id"]).".jpg";
             $this->modelo->borrar($_POST["id"]);
             if(file_exists($carpeta_destino.$nombre_archivo)){

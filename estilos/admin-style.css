@@ -135,6 +135,12 @@ h1 {
 #votacioneslistar>.comparsa>h3{
     display: inline-block;
 }
+#votacioneslistar>.comparsa>div{
+    display: flex;
+}
+#votacioneslistar>.comparsa>div>p{
+    margin-right:15px;
+}
 .divvotar{
     display: flex;
 }
@@ -160,7 +166,7 @@ h1 {
     border-radius: 15px;
     text-align: center;
     background-color:#b3b0b0;
-}
+} 
 .divvotar>div>img{
     width: 80%;
     display: block ;

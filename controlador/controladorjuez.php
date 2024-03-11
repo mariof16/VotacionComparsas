@@ -15,17 +15,18 @@ class CJuez extends CIniciosesion{
     
         $comparsas = $this->modelo->listar();
 
-        $array=$comparsas;
+        $resultado = [];
 
-        foreach ($array as $array) {
-            $idComparsa = $array['idComparsa'];
+        foreach($comparsas as $fila){
+            $idComparsa = $fila['idComparsa'];
             $idJuez = $_SESSION['id'];
 
-            $votado = $this->modelo->yavotado($idJuez, $idComparsa);
+            $votado = $this->modelo->yavotado($idJuez,$idComparsa);
     
-            $array['votado'] = $votado;
+            $fila['votado'] = $votado;
+            array_push($resultado,$fila);
         }
-        return $comparsas;
+        return $resultado;
     }
     function votar(){
         $this->vista='vistajuezcomparsavotar';
@@ -40,24 +41,77 @@ class CJuez extends CIniciosesion{
             }
             if($validacion){
                 try{
-                    $this->modelo->votar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"]);
+                    $fecha = date("Y-m-d H:i:s");
+                    $this->modelo->votar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"],$fecha);
                 }
                 catch(Exception $e)
                 {
+                    $this->error=$fecha;
                     if($e->getCode()==1062)
                         $this->error="Ya has votado a esa comparsa";
-                    return $datos=$this->modelo->datosvotacion($_POST["idcomparsa"]);
+                    return $datos=$this->modelo->datosparavotacion($_POST["idcomparsa"]);
                 }
                 if(!$this->error){
                     header ("Location: index.php?controlador=juez&metodo=listar");
                 }
             }else{
                 $this->error="La nota de los criterios tiene que estar entre 0 y 10";
-                return $datos=$this->modelo->datosvotacion($_POST["idcomparsa"]);
+                return $datos=$this->modelo->datosparavotacion($_POST["idcomparsa"]);
             }
         }
         else{
-            return $datos=$this->modelo->datosvotacion($_GET["id"]);
+            return $datos=$this->modelo->datosparavotacion($_GET["id"]);
         }
+    }
+    function modificar(){
+        $this->vista='vistajuezcomparsamodificar';
+        $validacion=true;
+        if(isset($_POST["votar"])){
+            foreach ($_POST["criterios"] as $idCriterio => $criterio) {
+                foreach ($criterio as $id => $puntuacion) {
+                    if($puntuacion<0 || $puntuacion>10){
+                        $validacion=false;
+                    }
+                }
+            }
+            if($validacion){
+                try{
+                    $fecha = date("Y-m-d H:i:s");
+                    $this->modelo->votar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"],$fecha);
+                }
+                catch(Exception $e)
+                {
+                    $this->error=$fecha;
+                    if($e->getCode()==1062)
+                        $this->error="Ya has votado a esa comparsa";
+                    return $datos=$this->datosvotacioncriterios($_POST["idcomparsa"],$_SESSION['id']);
+                }
+                if(!$this->error){
+                    header ("Location: index.php?controlador=juez&metodo=listar");
+                }
+            }else{
+                $this->error="La nota de los criterios tiene que estar entre 0 y 10";
+                return $datos=$this->datosvotacioncriterios($_POST["idcomparsa"],$_SESSION['id']);
+            }
+        }
+        else{
+            return $datos=$this->datosvotacioncriterios($_GET["id"],$_SESSION['id']);
+        }
+    }
+    function datosvotacioncriterios($idcomparsa,$idjuez){
+        $criterios=$this->modelo->datosparavotacion($idcomparsa);
+        $resultado =[];
+        //En proceso
+        foreach($criterios as $fila){
+            if($fila['tipo']=="criterio"){
+                
+                $fila['puntuacion']=$this->modelo->datosvotacion($idjuez,$idcomparsa,$fila["id"])[0]['puntuacion'];
+               
+                array_push($resultado,$fila);
+            }else{
+                array_push($resultado,$fila);
+            }
+        }
+        return $resultado;
     }
 }

@@ -11,8 +11,8 @@ class MJuez{
         $resultado = $this->conexion->query($query);
         return $resultado;
     }
-    public function votar($idjuez, $idcomparsa, $criterios) {
-        $query = "INSERT INTO Votacion (idJuez, idComparsa) VALUES ($idjuez, $idcomparsa)";
+    public function votar($idjuez, $idcomparsa, $criterios,$fechahora) {
+        $query = "INSERT INTO Votacion (idJuez, idComparsa,fechahora) VALUES ($idjuez, $idcomparsa,'$fechahora')";
         $this->conexion->query($query);
         $idVoto = $this->conexion->insert_id;
         foreach ($criterios as $idCriterio => $criterio) {
@@ -22,18 +22,30 @@ class MJuez{
             }
         }
     }
-    public function datosvotacion($id) {
-        $query = "SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
+    public function datosparavotacion($id) {
+        $query = "(SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
         FROM Comparsa c
-        WHERE c.idComparsa = $id
+        WHERE c.idComparsa = $id)
         UNION
-        SELECT cri.idCriterio AS id, cri.nombre AS nombre, 'criterio' AS tipo
-        FROM Criterios cri";
-    
+        (SELECT cri.idCriterio AS id, cri.nombre AS nombre, 'criterio' AS tipo
+        FROM Criterios cri)
+        ORDER BY tipo, id";
+        
         $resultado = $this->conexion->query($query);
         $datos = $resultado->fetch_all(MYSQLI_ASSOC);
-        $resultado->close();
 
+        return $datos;
+    }
+    public function datosvotacion($idjuez,$idcomparsa,$idcriterio){
+        $query = "SELECT puntuacion
+        FROM Criterios_Votacion cv
+        JOIN Votacion v ON cv.idVoto = v.idVoto
+        WHERE v.idJuez = $idjuez
+        AND v.idComparsa = $idcomparsa
+        AND cv.idCriterio = $idcriterio";
+
+        $resultado = $this->conexion->query($query);
+        $datos = $resultado->fetch_all(MYSQLI_ASSOC);
         return $datos;
     }
     public function yavotado($idjuez,$idcomparsa){

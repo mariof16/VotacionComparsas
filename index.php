@@ -8,6 +8,8 @@ if(isset($_GET["controlador"])){
 }
 if(isset($_GET["metodo"])){
     $metodo=($_GET["metodo"]);
+}else{
+    $metodo=METODO;
 }
 
 require_once "controlador/controlador".$nombrecontrolador.".php";

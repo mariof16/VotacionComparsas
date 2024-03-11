@@ -21,7 +21,7 @@
             <p>Nombre</p>
             <input type="text" name="nombre" value="<?php if(isset($datos['nombre'])) echo $datos['nombre']?>">
             <p>Imagen</p>
-            <img id="imgmodificar" src="img/comparsas/comparsa-<?php if (isset($datos['nombre'])) echo $datos['nombre']?>.jpg">
+            <img id="imgmodificar" src="comparsas/comparsa-<?php if (isset($datos['nombre'])) echo $datos['nombre']?>.jpg">
             <input type="file" name="imagen">
             <p>Provincia</p>
             <input type="text" name="provincia" value="<?php if(isset($datos['provincia'])) echo $datos['provincia']?>">
