@@ -77,17 +77,17 @@ class CJuez extends CIniciosesion{
             if($validacion){
                 try{
                     $fecha = date("Y-m-d H:i:s");
-                    $this->modelo->votar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"],$fecha);
+                    $this->modelo->modificar($_POST["idjuez"],$_POST["idcomparsa"],$_POST["criterios"],$fecha);
                 }
                 catch(Exception $e)
                 {
-                    $this->error=$fecha;
+                    $this->error="excepcion";
                     if($e->getCode()==1062)
                         $this->error="Ya has votado a esa comparsa";
                     return $datos=$this->datosvotacioncriterios($_POST["idcomparsa"],$_SESSION['id']);
                 }
                 if(!$this->error){
-                    header ("Location: index.php?controlador=juez&metodo=listar");
+                    //header ("Location: index.php?controlador=juez&metodo=listar");
                 }
             }else{
                 $this->error="La nota de los criterios tiene que estar entre 0 y 10";

@@ -22,6 +22,17 @@ class MJuez{
             }
         }
     }
+    public function modificar($idjuez, $idcomparsa, $criterios,$fechahora) {
+        $query = "UPDATE Votacion SET fechahora='$fechahora' WHERE idJuez=$idjuez and idComparsa=$idcomparsa";
+        $this->conexion->query($query);
+        $idVoto = 
+        foreach ($criterios as $idCriterio => $criterio) {
+            foreach ($criterio as $id => $puntuacion) {
+                $query = "UPDATE Criterios_Votacion SET puntuacion=$puntuacion WHERE idVoto=$idVoto and idCriterio=$idCriterio";
+                $this->conexion->query($query);
+            }
+        }
+    }
     public function datosparavotacion($id) {
         $query = "(SELECT c.idComparsa AS id, c.nombre AS nombre, 'comparsa' AS tipo
         FROM Comparsa c

@@ -11,7 +11,7 @@
     <a href="index.php?controlador=juez&metodo=listar" class="boton">Atras</a>
     <div class="container" id="divcomparsas">
         <?php
-            print("<pre>".print_r($datos,true)."</pre>");
+            /*print("<pre>".print_r($datos,true)."</pre>");*/
             if(isset($controlador->error)){
                 echo "<h1 class='error'>";
                 echo $controlador->error;
@@ -28,7 +28,7 @@
         ?>
         </h2>
         <h2>La nota para cada criterio es como mínimo 0 y máximo 10</h2>
-        <form class="divvotar" action="index.php?controlador=juez&metodo=votar" method="post">
+        <form class="divvotar" action="index.php?controlador=juez&metodo=modificar" method="post">
             <div>
                 <img src="comparsas/comparsa-<?php if(isset($datos[0]["nombre"])) echo $datos[0]["nombre"].".jpg"?>">
             </div>
