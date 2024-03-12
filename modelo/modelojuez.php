@@ -25,10 +25,13 @@ class MJuez{
     public function modificar($idjuez, $idcomparsa, $criterios,$fechahora) {
         $query = "UPDATE Votacion SET fechahora='$fechahora' WHERE idJuez=$idjuez and idComparsa=$idcomparsa";
         $this->conexion->query($query);
-        $idVoto = 
+
+        $query = "SELECT idVoto FROM Votacion WHERE idJuez=$idjuez and idComparsa=$idcomparsa";
+        $resultado=$this->conexion->query($query);
+        $idVoto = $resultado->fetch_all(MYSQLI_ASSOC);
         foreach ($criterios as $idCriterio => $criterio) {
             foreach ($criterio as $id => $puntuacion) {
-                $query = "UPDATE Criterios_Votacion SET puntuacion=$puntuacion WHERE idVoto=$idVoto and idCriterio=$idCriterio";
+                $query = "UPDATE Criterios_Votacion SET puntuacion=$puntuacion WHERE idVoto=".$idVoto[0]["idVoto"]." and idCriterio=$idCriterio";
                 $this->conexion->query($query);
             }
         }
@@ -45,6 +48,14 @@ class MJuez{
         $resultado = $this->conexion->query($query);
         $datos = $resultado->fetch_all(MYSQLI_ASSOC);
 
+        return $datos;
+    }
+    public function criterios(){
+        $query = "SELECT idCriterio,nombre FROM Criterios
+        ORDER BY idCriterio";
+        
+        $resultado = $this->conexion->query($query);
+        $datos = $resultado->fetch_all(MYSQLI_ASSOC);
         return $datos;
     }
     public function datosvotacion($idjuez,$idcomparsa,$idcriterio){

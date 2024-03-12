@@ -13,20 +13,24 @@
         <h2>Comparsas</h2>
         <div class="comparsas-list" id="votacioneslistar">
             <?php
+            print("<pre>".print_r($datos,true)."</pre>");
             foreach($datos as $fila){
-                echo "<div class='comparsa'>";
-                echo "<h3>".$fila["nombre"]."</h3>";
-                echo "<h2>".$fila["poblacion"]."</h2>";
-                echo "  <div>";
-                if(!$fila['votado']){
-                    echo "<p>Votar: </p>";
-                    echo "<a class=botonvotar href='index.php?controlador=juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
-                }else{
-                    echo "<p>Modificar:</p>";
-                    echo "<a class=botonvotar href='index.php?controlador=juez&metodo=modificar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                if(isset($fila["nombre"])){
+                    echo "<div class='comparsa'>";
+                    echo "<h3>".$fila["nombre"]."</h3>";
+                    echo "<h2>".$fila["poblacion"]."</h2>";
+                    echo "  <div>";
+                    if(!$fila['votado']){
+                        echo "<p>Votar: </p>";
+                        echo "<a class=botonvotar href='index.php?controlador=juez&metodo=votar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                    }else{
+                        //Codigo para insertar las notas
+                        echo "<p>Cambiar votación:</p>";
+                        echo "<a class=botonvotar href='index.php?controlador=juez&metodo=modificar&id=".$fila["idComparsa"]."'><img src='img/votar.png'></img></a>";
+                    }
+                    echo "  </div>";
+                    echo "</div>";
                 }
-                echo "  </div>";
-                echo "</div>";
             }?>
         </div>
     </div>

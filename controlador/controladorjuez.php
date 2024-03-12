@@ -16,14 +16,25 @@ class CJuez extends CIniciosesion{
         $comparsas = $this->modelo->listar();
 
         $resultado = [];
-
+        
         foreach($comparsas as $fila){
             $idComparsa = $fila['idComparsa'];
             $idJuez = $_SESSION['id'];
 
-            $votado = $this->modelo->yavotado($idJuez,$idComparsa);
-    
+            $votado = $this->modelo->yavotado($idJuez,$idComparsa); 
             $fila['votado'] = $votado;
+            if(!empty($votado)){
+                $notascriterios=[];
+                $listanotascriterios=$this->modelo->criterios();
+                foreach($listanotascriterios as $filacriterio){
+                    $fila=[];
+                    $nota=$this->modelo->datosvotacion($idJuez,$idComparsa,$filacriterio["idCriterio"]);
+                    array_push($fila,$nota[0]["puntuacion"]);
+                    array_push($fila,$filacriterio["nombre"]);
+                    array_push($notascriterios,$fila);
+                }
+                $fila['criterios']=$notascriterios;
+            }
             array_push($resultado,$fila);
         }
         return $resultado;
@@ -81,13 +92,10 @@ class CJuez extends CIniciosesion{
                 }
                 catch(Exception $e)
                 {
-                    $this->error="excepcion";
-                    if($e->getCode()==1062)
-                        $this->error="Ya has votado a esa comparsa";
                     return $datos=$this->datosvotacioncriterios($_POST["idcomparsa"],$_SESSION['id']);
                 }
                 if(!$this->error){
-                    //header ("Location: index.php?controlador=juez&metodo=listar");
+                    header ("Location: index.php?controlador=juez&metodo=listar");
                 }
             }else{
                 $this->error="La nota de los criterios tiene que estar entre 0 y 10";

@@ -11,7 +11,7 @@
     <a href="index.php?controlador=juez&metodo=listar" class="boton">Atras</a>
     <div class="container" id="divcomparsas">
         <?php
-            /*print("<pre>".print_r($datos,true)."</pre>");*/
+            //print("<pre>".print_r($datos,true)."</pre>");
             if(isset($controlador->error)){
                 echo "<h1 class='error'>";
                 echo $controlador->error;

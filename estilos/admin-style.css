@@ -103,6 +103,9 @@ h1 {
     justify-content: space-between;
     align-items: center;
 }
+.notas{
+    display: block;
+}
 .comparsa>div>a{
     display: inline-block;
     height: 40px;
@@ -135,7 +138,7 @@ h1 {
 #votacioneslistar>.comparsa>h3{
     display: inline-block;
 }
-#votacioneslistar>.comparsa>div{
+#votacioneslistar>.comparsa>div:last-child{
     display: flex;
 }
 #votacioneslistar>.comparsa>div>p{
