@@ -27,11 +27,11 @@ class CJuez extends CIniciosesion{
                 $notascriterios=[];
                 $listanotascriterios=$this->modelo->criterios();
                 foreach($listanotascriterios as $filacriterio){
-                    $fila=[];
+                    $filaaux=[];
                     $nota=$this->modelo->datosvotacion($idJuez,$idComparsa,$filacriterio["idCriterio"]);
-                    array_push($fila,$nota[0]["puntuacion"]);
-                    array_push($fila,$filacriterio["nombre"]);
-                    array_push($notascriterios,$fila);
+                    array_push($filaaux,$nota[0]["puntuacion"]);
+                    array_push($filaaux,$filacriterio["nombre"]);
+                    array_push($notascriterios,$filaaux);
                 }
                 $fila['criterios']=$notascriterios;
             }

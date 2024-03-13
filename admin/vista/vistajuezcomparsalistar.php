@@ -13,12 +13,17 @@
         <h2>Comparsas</h2>
         <div class="comparsas-list" id="votacioneslistar">
             <?php
-            print("<pre>".print_r($datos,true)."</pre>");
+            //print("<pre>".print_r($datos,true)."</pre>");
             foreach($datos as $fila){
                 if(isset($fila["nombre"])){
                     echo "<div class='comparsa'>";
                     echo "<h3>".$fila["nombre"]."</h3>";
                     echo "<h2>".$fila["poblacion"]."</h2>";
+                    if(isset($fila["criterios"])){
+                        foreach($fila["criterios"] as $criterio){
+                            echo "<p>".$criterio[1].": ".$criterio[0]."</p>";
+                        }
+                    }
                     echo "  <div>";
                     if(!$fila['votado']){
                         echo "<p>Votar: </p>";
