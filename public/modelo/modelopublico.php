@@ -9,7 +9,7 @@ class MPublico{
     public function ranking(){
         $query = 
         'SELECT Comparsa.nombre AS nombre,
-        SUM(Criterios_Votacion.puntuacion) AS PuntuacionTotal
+        ROUND(AVG(Criterios_Votacion.puntuacion),2) AS PuntuacionTotal
         FROM 
             Comparsa
         JOIN 
