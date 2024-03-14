@@ -99,3 +99,17 @@ h1 {
 #formulariobuscar input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+#pdf{
+    text-decoration: none;
+    color:white;
+    display: block;
+    width: fit-content;
+    margin: auto;
+    padding: 7px;
+    border-radius: 15px;
+    border:1px solid black ;
+    text-align: center;
+    margin-top: 15px;
+    background-color: #999999;
+}

@@ -11,10 +11,11 @@
         <h1>Ranking Comparsas Carnavales</h1>
     </div>
     <div id="menu">
-        <a href="index.php?controlador=Publico&metodo=ranking">Ranking</a>
-        <a href="index.php?controlador=Publico&metodo=podio">Podio</a>
-        <a href="index.php?controlador=Publico&metodo=buscar">Buscar</a>
+        <a href="index.php?controlador=publico&metodo=ranking">Ranking</a>
+        <a href="index.php?controlador=publico&metodo=podio">Podio</a>
+        <a href="index.php?controlador=publico&metodo=buscar">Buscar</a>
     </div>
+    <a id="pdf" href="index.php?controlador=publico&metodo=pdf" target="__blank">Descargar pdf</a>
     <div class="ranking">
         <table>
             <tr class="header">
@@ -28,7 +29,7 @@
                     echo "<tr>";
                     echo    "<td>".($i+1)."</td>";
                     echo    "<td>".$fila["nombre"]."</td>";
-                    echo    "<td>".$fila["PuntuacionTotal"]."</td>";
+                    echo    "<td>".$fila["puntuaciontotal"]."</td>";
                     echo "</tr>";
                 }
             ?>

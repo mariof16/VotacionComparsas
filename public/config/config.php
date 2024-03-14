@@ -1,3 +1,3 @@
 <?php
-    define('CONTROLADOR','Publico');
+    define('CONTROLADOR','publico');
     define('METODO','ranking');

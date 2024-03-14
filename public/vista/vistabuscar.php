@@ -11,9 +11,9 @@
         <h1>Ranking Comparsas Carnavales</h1>
     </div>
     <div id="menu">
-        <a href="index.php?controlador=Publico&metodo=ranking">Ranking</a>
-        <a href="index.php?controlador=Publico&metodo=podio">Podio</a>
-        <a href="index.php?controlador=Publico&metodo=buscar">Buscar</a>
+        <a href="index.php?controlador=publico&metodo=ranking">Ranking</a>
+        <a href="index.php?controlador=publico&metodo=podio">Podio</a>
+        <a href="index.php?controlador=publico&metodo=buscar">Buscar</a>
     </div>
     <?php
     if(!empty($datos)){
@@ -28,14 +28,14 @@
                     echo "<tr>";
                     echo    "<td>".($i+1)."</td>";
                     echo    "<td>".$fila["nombre"]."</td>";
-                    echo    "<td>".$fila["PuntuacionTotal"]."</td>";
+                    echo    "<td>".$fila["puntuaciontotal"]."</td>";
                     echo "</tr>";
                 }
                 echo"
             </table>
         </div>";
     }else{
-        echo "<form id='formulariobuscar' action='index.php?controlador=Publico&metodo=buscar' method='post'>";
+        echo "<form id='formulariobuscar' action='index.php?controlador=publico&metodo=buscar' method='post'>";
         echo "<label for='nombrecomparsa'>Nombre de la comparsa a buscar:</label>";
         echo "<input type='text' name='nombrecomparsa'></input>";
         echo "<input type='submit' name='buscar'></input>";

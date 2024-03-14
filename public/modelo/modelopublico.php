@@ -9,7 +9,7 @@ class MPublico{
     public function ranking(){
         $query = 
         'SELECT Comparsa.nombre AS nombre,
-        ROUND(AVG(Criterios_Votacion.puntuacion),2) AS PuntuacionTotal
+        ROUND(AVG(Criterios_Votacion.puntuacion),2) AS puntuaciontotal
         FROM 
             Comparsa
         JOIN 
@@ -19,7 +19,7 @@ class MPublico{
         GROUP BY 
             Comparsa.idComparsa, Comparsa.nombre
         ORDER BY 
-            PuntuacionTotal DESC;';
+            puntuaciontotal DESC;';
         $resultado = $this->conexion->query($query);
         $resultado=$resultado->fetch_all(MYSQLI_ASSOC);
         return $resultado;
@@ -27,7 +27,7 @@ class MPublico{
     public function podio(){
         $query = 
         'SELECT Comparsa.nombre AS nombre,
-        ROUND(AVG(Criterios_Votacion.puntuacion),2) AS PuntuacionTotal
+        ROUND(AVG(Criterios_Votacion.puntuacion),2) AS puntuaciontotal
         FROM 
             Comparsa
         JOIN 
@@ -37,7 +37,7 @@ class MPublico{
         GROUP BY 
             Comparsa.idComparsa, Comparsa.nombre
         ORDER BY 
-            PuntuacionTotal DESC
+            puntuaciontotal DESC
         LIMIT 3;'; // Limitar a solo los tres primeros resultados
         $resultado = $this->conexion->query($query);
         $resultado = $resultado->fetch_all(MYSQLI_ASSOC);
@@ -46,7 +46,7 @@ class MPublico{
     public function buscar($nombrecomparsa){
         $query = 
         "SELECT Comparsa.nombre AS nombre,
-        ROUND(AVG(Criterios_Votacion.puntuacion), 2) AS PuntuacionTotal
+        ROUND(AVG(Criterios_Votacion.puntuacion), 2) AS puntuaciontotal
         FROM 
             Comparsa
         JOIN 

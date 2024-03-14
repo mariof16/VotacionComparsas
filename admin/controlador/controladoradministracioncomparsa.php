@@ -53,6 +53,8 @@ class CAdministracionComparsa extends CIniciosesion{
                     catch(Exception $e){
                         if($e->getcode()==1062)
                             $this->error="El nombre ".$nombre." ya está en uso";
+                        else
+                            $this->error="Nombre muy largo";
                     }
                 }else{
                     $this->error="El nombre no puede estar vacío";
@@ -112,6 +114,8 @@ class CAdministracionComparsa extends CIniciosesion{
                 catch(Exception $e){
                     if($e->getcode()=="1062")
                         $this->error="El nombre ".$nombre." ya está en uso";
+                    else
+                        $this->error="Nombre muy largo";
                 }
                 if(!$this->error){
                     header ("Location: index.php?controlador=administracioncomparsa&metodo=listar");
