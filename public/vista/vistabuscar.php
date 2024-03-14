@@ -15,15 +15,15 @@
         <a href="index.php?controlador=Publico&metodo=podio">Podio</a>
         <a href="index.php?controlador=Publico&metodo=buscar">Buscar</a>
     </div>
-    <div class="ranking">
-        <table>
-            <tr class="header">
-                <th>Posición</th>
-                <th>Nombre</th>
-                <th>Puntuación</th>
-            </tr>
-            <?php 
-            // print("<pre>".print_r($datos,true)."</pre>");
+    <?php
+    if(!empty($datos)){
+        echo"<div class='ranking'>
+            <table>
+                <tr class='header'>
+                    <th>Posición</th>
+                    <th>Nombre</th>
+                    <th>Puntuación</th>
+                </tr>";
                 foreach($datos as $i =>$fila){
                     echo "<tr>";
                     echo    "<td>".($i+1)."</td>";
@@ -31,8 +31,16 @@
                     echo    "<td>".$fila["PuntuacionTotal"]."</td>";
                     echo "</tr>";
                 }
-            ?>
-        </table>
-    </div>
+                echo"
+            </table>
+        </div>";
+    }else{
+        echo "<form id='formulariobuscar' action='index.php?controlador=Publico&metodo=buscar' method='post'>";
+        echo "<label for='nombrecomparsa'>Nombre de la comparsa a buscar:</label>";
+        echo "<input type='text' name='nombrecomparsa'></input>";
+        echo "<input type='submit' name='buscar'></input>";
+        echo"</form>";
+    }
+    ?>
 </body>
 </html>
