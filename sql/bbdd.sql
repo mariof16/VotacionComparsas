@@ -20,7 +20,7 @@ CREATE TABLE Usuarios(
     idUsuario INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(40) NOT NULL,
     correo VARCHAR(40) NOT NULL,
-    contrasenia VARCHAR(40) NOT NULL,
+    contrasenia VARCHAR(60) NOT NULL,
     tipo VARCHAR(40) NOT NULL,
     CONSTRAINT pkusuarios PRIMARY KEY (idUsuario)
 )ENGINE=INNODB;

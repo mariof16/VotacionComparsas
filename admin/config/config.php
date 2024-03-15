@@ -1,3 +1,3 @@
 <?php
-    define('CONTROLADOR','iniciosesion');
-    define('METODO','mostrar');
+      define('CONTROLADOR','iniciosesion');
+      define('METODO','mostrar');

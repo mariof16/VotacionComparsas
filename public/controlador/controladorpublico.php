@@ -46,12 +46,22 @@ class CPublico{
         $this->vista='vistapodio';
         return $this->modelo->podio();
     }
-    function buscar(){
-        $this->vista='vistabuscar';
+    function buscar() {
+        $this->vista = 'vistabuscar';
         $resultado = false;
-        if(isset($_POST["buscar"])){
-            $resultado=$this->modelo->buscar($_POST["nombrecomparsa"]);
+    
+        if (isset($_POST["buscar"])) {
+            $nombrecomparsa = $_POST["nombrecomparsa"];
+            $resultado = $this->modelo->buscar($nombrecomparsa);
+
+            setcookie("nombrecomparsa", $nombrecomparsa, time() + (86400 * 30), "/"); // 30 días de duración
+        } else {
+            if (isset($_COOKIE["nombrecomparsa"])) {
+                $nombrecomparsa = $_COOKIE["nombrecomparsa"];
+                $resultado = $this->modelo->buscar($nombrecomparsa);
+            }
         }
+    
         return $resultado;
     }
 }
